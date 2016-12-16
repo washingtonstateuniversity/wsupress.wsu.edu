@@ -1,0 +1,375 @@
+/*** FROM WP EDIT CSS ***/
+#jacket {
+	background: transparent url('/assets/book-cover-bkgrd.jpg') no-repeat center top;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+main {
+	background-color: #fff;
+}
+
+#header-links {
+	float: right;
+	margin-bottom: 2.5em;
+}
+
+#header-links ul {
+	float: right;
+	padding-top: 1em;
+}
+
+#header-links li {
+	list-style-type: none;
+	float: left;
+	margin-left: .625rem;
+	text-transform: uppercase;
+	border-left: 1px solid #bbc3c8;
+	padding-left: .75em;
+}
+
+#header-links li:first-child {
+	border-left: 0;
+}
+
+#header-links a {
+	color: #bbc3c8;
+}
+
+#header-links a:hover {
+	color: #fff;
+}
+
+#social img {
+	padding-left: 0;
+}
+
+#social img:first-child {
+	padding-left: .25em;
+}
+
+#press-header {
+	text-align: center;
+	padding-left: 10rem;
+}
+
+#press-slogan {
+	margin-top: .625rem;
+	clear: left;
+	font-family: 'Open Sans';
+	font-style: italic;
+	font-weight: 100;
+	font-size: 2rem;
+	color: #bbc3c8;
+}
+
+.main-header {
+	border-top: .3rem solid #981e32;
+	background: #4c5054 url('/assets/main-header-home.png') no-repeat 2.188rem center;
+	padding-bottom: 2.5rem;
+	display: inline-table;
+}
+
+.main-header sup,
+.main-header sub {
+	display: none;
+}
+
+@media only screen and (max-width: 1386px) {
+	#press-header {
+		padding-top: 3.125rem;
+		padding-left: 0;
+		text-align: center;
+	}
+
+	#press-logo img {
+		width: 80%;
+		height: auto;
+	}
+
+	.main-header {
+		background: #4c5054;
+	}
+}
+
+@media only screen and (max-width: 1187px) {
+	#press-slogan {
+		font-size: 1.5rem;
+	}
+}
+
+@media only screen and (max-width: 660px) {
+	#header-links {
+		display: none;
+	}
+
+	#press-logo img {
+		width: 90%;
+		height: auto;
+	}
+}
+
+@media only screen and (max-width: 580px) {
+	#press-slogan {
+		font-size: 1.25rem;
+		margin-top: 0;
+	}
+}
+
+@media only screen and (max-width: 440px) {
+	#press-slogan {
+		font-size: 1rem;
+	}
+}
+
+@media only screen and (max-width: 360px) {
+	#press-slogan {
+		font-size: .75rem;
+	}
+}
+
+/*** ORIGINAL STYLE SHEET BELOW ***/
+.crimson-top {
+	border-top: 4px solid #981e32;
+    margin-top: 4rem;
+}
+
+a {
+	color: #2a3033;
+}
+
+a:hover {
+	color: #981e32;
+}
+
+button {
+	color: #fff;
+	background-color: #5e6a71;
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+button:hover {
+	color: #fff;
+	background-color: #981e32;
+}
+
+h2 {
+	color:#2a3033;
+	text-transform: uppercase;
+	margin-bottom: .75rem;
+}
+
+/*** HOMEPAGE SLIDESHOWS ***/
+.column.slide-title:nth-child(2) {
+    padding-top: 0;
+}
+
+.slide-title h2 {
+    padding-top: 0;
+    margin-bottom: .75rem;
+}
+
+.book-summary {
+    margin-bottom: 4rem;
+}
+
+/* Lower the opacity of non-active slides */
+.book-cover.cycle-slide,
+.book-cover.cycle-slide-active {
+    opacity:0.4 !important;
+    filter:alpha(opacity=40); /* For IE8 and earlier */
+    transition: opacity 1.25s ease-in-out;
+    -moz-transition: opacity 1.25s ease-in-out;
+    -webkit-transition: opacity 1.25s ease-in-out;
+}
+
+/* Give active slide 100% opacity */
+.book-cover.cycle-slide-active + .cycle-slide {
+    opacity:1 !important;
+    filter:alpha(opacity=100); /* For IE8 and earlier */
+    transition: opacity 2.25s ease-in-out;
+    -moz-transition: opacity 2.25s ease-in-out;
+    -webkit-transition: opacity 2.25s ease-in-out;
+}
+
+.cycle-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.cycle-slideshow.book-cover {
+    overflow: visible !important;
+    width: 20%;
+    margin: 0 40%;
+}
+
+.cycle-slide img {
+    /*width: 135px;
+    height: 203px;*/
+    width: 154px;
+    height: 226px;
+    opacity: .35;
+    margin-bottom: 6.5rem;
+    vertical-align: middle;
+}
+
+.cycle-slide-active img {
+    border: 1px solid #981e32;
+    opacity: 1;
+    /*original img width: 154px;*/
+    /*original img height: 226px;*/
+    /*width: 190px;
+    height: 267px;*/
+    box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.75);
+}
+
+.book-summary {
+    margin-top: 1rem;
+	background-color: #f3f5f6;
+    color: #2a3033;
+    border-radius: 8px;
+    text-align: center;
+
+    padding: .75rem 1.5rem;
+    /*min-width: 650px;
+    min-height: 120px;*/
+    margin: auto;
+    display: inline-block;
+    width: 50%;
+}
+
+.cycle-content.cycle-slide {
+    width: 100%;
+    text-align: center;
+}
+
+.cycle-content.cycle-slide > * {
+    display: inline-block;
+    text-align: center;
+    margin: auto;
+}
+
+.cycle-content.cycle-slide > h3 {
+    display: block;
+}
+
+.book-summary h3 {
+	text-transform: uppercase;
+	font-size: 1.3rem;
+    line-height: 1.4;
+    font-weight: 300;
+    color: #981e32;
+    margin-bottom: 0;
+}
+
+.book-summary p {
+    font-size: 1.1rem;
+    font-weight: 100;
+    padding-bottom: 0;
+}
+
+.book-summary small::before {
+    content: '';
+    height: 1px;
+    width: 100%;
+    display: block;
+    border-top: 1px dotted #5e6a71;
+    padding-bottom: .75rem;
+}
+
+.book-summary small {
+    font-size: .9rem;
+    line-height: 1.4;
+    font-weight: 100;
+    color: #5e6a71;
+    padding-top: .75rem;
+    display: block;
+    width: 100%;
+}
+
+.book-cover {
+    padding-bottom: 1rem;
+    float: left;
+}
+
+.book-summary {
+    margin-top: 1rem;
+}
+
+#new-prev,
+#new-next,
+#best-prev,
+#best-next {
+    float: left;
+    cursor: pointer;
+    margin: 1rem;
+    position: absolute;
+}
+
+#new-prev,
+#new-next {
+    top: 30%;
+}
+
+#best-prev,
+#best-next {
+    top: 15%;
+}
+
+#new-prev,
+#best-prev{
+    left: 10px;
+}
+
+#new-next,
+#best-next {
+    right: 10px;
+}
+/*** END/SLIDESHOW STYLES ***/
+
+.browse-books,
+.connect,
+.news,
+.events,
+.about-us,
+.for-authors {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	min-height: 400px;
+	padding: 0 2em 2em;
+}
+
+.browse-books {
+	background-color: #e5e5e7;
+}
+
+.connect {
+	background-color: #eddfd0;
+}
+
+.about-us {
+	background-color: #ded8c2;
+}
+
+.for-authors {
+	background-color: #dfe4e2;
+}
+
+.connect a, .about-us a {
+	border-bottom: 1px solid #a9a299;
+	padding-top: 4px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	display: inline-block;
+	width: 100%;
+	max-width: 300px;
+}
+
+.connect a:first-child, .about-us a:first-child {
+	border-top: 1px solid #a9a299;
+	margin-top: 5px;
+}
