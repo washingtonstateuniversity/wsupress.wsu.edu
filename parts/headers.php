@@ -32,7 +32,7 @@ if ( spine_get_option( 'main_header_show' ) == 'true' ) :
 	<div id="press-header">
 	
 	<div id="press-logo">
-	<img src="../assets/wsu-press-lg.png" />
+	<img src="https://stage.wsupress.wsu.edu/wp-content/uploads/sites/1175/2016/12/wsu-press-lg.png" />
 	</div>
 	
 	<div id="press-slogan">
