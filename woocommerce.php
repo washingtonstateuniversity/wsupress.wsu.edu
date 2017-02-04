@@ -4,19 +4,13 @@
 
 <?php get_template_part( 'parts/headers' ); ?>
 
-<section class="row side-right gutter pad-ends">
+<section class="row single gutter pad-ends">
 
 	<div class="column one">
 
 		<?php woocommerce_content(); ?>
 
 	</div><!--/column-->
-
-	<div class="column two">
-
-		<?php get_sidebar(); ?>
-
-	</div><!--/column two-->
 
 </section>
 
