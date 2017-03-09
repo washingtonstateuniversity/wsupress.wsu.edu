@@ -56,6 +56,7 @@ class WSU_Press_Extended_WooCommerce {
 	 */
 	public function setup_hooks() {
 		add_action( 'init', array( $this, 'register_meta' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'edit_form_after_title', array( $this, 'edit_form_after_title' ) );
 		add_action( 'save_post_product', array( $this, 'save_product' ), 10, 2 );
 	}
@@ -69,6 +70,20 @@ class WSU_Press_Extended_WooCommerce {
 		foreach ( $this->post_meta_keys as $key => $args ) {
 			$args['single'] = true;
 			register_meta( 'post', $key, $args );
+		}
+	}
+
+	/**
+	 * Enqueue scripts and styles used in the admin.
+	 *
+	 * @since 0.0.12
+	 *
+	 * @param string $hook_suffix
+	 */
+	public function admin_enqueue_scripts( $hook_suffix ) {
+		if ( in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) && 'product' === get_current_screen()->id ) {
+			wp_enqueue_style( 'wsu-press-product', get_stylesheet_directory_uri() . '/admin-css/woocommerce-product.css' );
+			wp_enqueue_script( 'wsu-press-product', get_stylesheet_directory_uri() . '/js/admin-woocommerce-product.min.js', array( 'jquery', 'underscore' ), '', true );
 		}
 	}
 

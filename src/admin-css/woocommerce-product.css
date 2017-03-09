@@ -1,0 +1,39 @@
+.wsu-press-product-field-wrapper {
+	position: relative;
+}
+
+.wsu-press-product-field-wrapper label {
+	color: #777;
+	cursor: text;
+	font-size: 14px;
+	padding: 3px 5px;
+	position: absolute;
+}
+
+.wsu-press-product-attribution {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.wsu-press-product-attribution * {
+	box-sizing: border-box;
+}
+
+/* Prevent labels from covering the "remove" button, which is ~79px wide. */
+.wsu-press-product-attribution label {
+	width: calc(100% - 79px);
+}
+
+.wsu-press-product-attribution input {
+	flex: 1 0 auto;
+}
+
+.wp-core-ui .wsu-press-product-attribution button {
+	margin-left: 8px;
+	align-self: center;
+}
+
+/* This allows meta boxes to be dropped into the custom sortable area. */
+#wsu_press_product-sortables {
+	min-height: 10px;
+}
