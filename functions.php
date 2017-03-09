@@ -1,5 +1,19 @@
 <?php
 
+require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-extended-woocommerce.php' );
+
+add_action( 'after_setup_theme', 'WSU_Press_Extended_WooCommerce' );
+/**
+ * Starts the class for extending WooCommerce products.
+ *
+ * @since 0.0.12
+ *
+ * @return \WSU_Press_Extended_WooCommerce
+ */
+function WSU_Press_Extended_WooCommerce() {
+	return WSU_Press_Extended_WooCommerce::get_instance();
+}
+
 /**
  * Remove additional page templates from the drop-down menu when editing pages.
  */
