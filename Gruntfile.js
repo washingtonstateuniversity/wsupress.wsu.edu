@@ -3,7 +3,7 @@ module.exports = function( grunt ) {
         pkg: grunt.file.readJSON( "package.json" ),
 
         stylelint: {
-            src: [ "css/*.css" ]
+            src: [ "css/*.css", "src/admin-css/*.css" ]
         },
 
         concat: {
@@ -17,18 +17,28 @@ module.exports = function( grunt ) {
         },
 
         postcss: {
-            options: {
-                map: true,
-                diff: false,
-                processors: [
-                    require( "autoprefixer" )( {
-                        browsers: [ "> 1%", "ie 8-11", "Firefox ESR" ]
-                    } )
-                ]
-            },
-            dist: {
+            frontend: {
+                options: {
+                    map: true,
+                    processors: [
+                        require( "autoprefixer" )( {
+                            browsers: [ "> 1%", "ie 8-11", "Firefox ESR" ]
+                        } )
+                    ]
+                },
                 src: "tmp-style.css",
                 dest: "style.css"
+            },
+            admin: {
+                options: {
+                    processors: [
+                        require( "autoprefixer" )( {
+                            browsers: [ "> 1%", "ie 8-11", "Firefox ESR" ]
+                        } )
+                    ]
+                },
+                src: "src/admin-css/woocommerce-product.css",
+                dest: "admin-css/woocommerce-product.css"
             }
         },
 
