@@ -5,6 +5,7 @@
     <rule ref="WordPress-Extra">
         <exclude name="WordPress.NamingConventions.ValidFunctionName" />
         <exclude name="WordPress.Files.FileName" />
-        <exclude name="WordPress.PHP.DisallowAlternativePHPTags.MaybeASPShortOpenTagFound" />
+        <exclude name="Generic.PHP.DisallowAlternativePHPTags.MaybeASPShortOpenTagFound" />
+        <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
     </rule>
 </ruleset>
