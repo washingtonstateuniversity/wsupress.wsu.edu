@@ -9,7 +9,7 @@ class WSU_Press_Extended_WooCommerce {
 	private static $instance;
 
 	/**
-	 * A list of post meta keys associated with a person.
+	 * A list of post meta keys associated with a product.
 	 *
 	 * @since 0.0.12
 	 *
