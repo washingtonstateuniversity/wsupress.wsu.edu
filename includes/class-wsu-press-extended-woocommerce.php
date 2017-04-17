@@ -81,9 +81,17 @@ class WSU_Press_Extended_WooCommerce {
 	 * @param string $hook_suffix
 	 */
 	public function admin_enqueue_scripts( $hook_suffix ) {
-		if ( in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) && 'product' === get_current_screen()->id ) {
+		if ( 'product' !== get_current_screen()->post_type ) {
+			return;
+		}
+
+		if ( in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) ) {
 			wp_enqueue_style( 'wsu-press-product', get_stylesheet_directory_uri() . '/admin-css/woocommerce-product.css' );
 			wp_enqueue_script( 'wsu-press-product', get_stylesheet_directory_uri() . '/js/admin-woocommerce-product.min.js', array( 'jquery', 'underscore' ), '', true );
+		}
+
+		if ( 'edit.php' === $hook_suffix ) {
+			wp_enqueue_style( 'wsu-press-product-list-table', get_stylesheet_directory_uri() . '/admin-css/woocommerce-product-list-table.css' );
 		}
 	}
 
