@@ -29,16 +29,20 @@ module.exports = function( grunt ) {
                 src: "tmp-style.css",
                 dest: "style.css"
             },
-            admin: {
-                options: {
-                    processors: [
-                        require( "autoprefixer" )( {
-                            browsers: [ "> 1%", "ie 8-11", "Firefox ESR" ]
-                        } )
-                    ]
-                },
+            options: {
+                processors: [
+                    require( "autoprefixer" )( {
+                        browsers: [ "> 1%", "ie 8-11", "Firefox ESR" ]
+                    } )
+                ]
+            },
+            admin_edit_product: {
                 src: "src/admin-css/woocommerce-product.css",
                 dest: "admin-css/woocommerce-product.css"
+            },
+            admin_product_list_table: {
+                src: "src/admin-css/woocommerce-product-list-table.css",
+                dest: "admin-css/woocommerce-product-list-table.css"
             }
         },
 

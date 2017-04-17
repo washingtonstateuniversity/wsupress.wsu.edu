@@ -1,0 +1,10 @@
+#sku span:first-of-type:after {
+	content: "/ISBN";
+}
+
+@media screen and (max-width: 782px) {
+
+	.wp-list-table tr:not(.inline-edit-row):not(.no-items) td.sku:before {
+		content: "SKU/ISBN";
+	}
+}
