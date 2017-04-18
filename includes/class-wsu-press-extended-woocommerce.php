@@ -59,6 +59,7 @@ class WSU_Press_Extended_WooCommerce {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'edit_form_after_title', array( $this, 'edit_form_after_title' ) );
 		add_action( 'save_post_product', array( $this, 'save_product' ), 10, 2 );
+		add_filter( 'pre_option_woocommerce_ship_to_destination', array( $this, 'force_ship_to_billing' ) );
 	}
 
 	/**
@@ -238,5 +239,17 @@ class WSU_Press_Extended_WooCommerce {
 				delete_post_meta( $post_id, $key );
 			}
 		}
+	}
+
+	/**
+	 * Forces the store to ship only to the billing address. This
+	 * is required for how we interact with the payment gateway.
+	 *
+	 * @since 0.0.13
+	 *
+	 * @return string
+	 */
+	public function force_ship_to_billing() {
+		return 'billing_only';
 	}
 }
