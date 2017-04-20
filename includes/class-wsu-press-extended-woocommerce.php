@@ -88,11 +88,33 @@ class WSU_Press_Extended_WooCommerce {
 
 		if ( in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) ) {
 			wp_enqueue_style( 'wsu-press-product', get_stylesheet_directory_uri() . '/admin-css/woocommerce-product.css' );
-			wp_enqueue_script( 'wsu-press-product', get_stylesheet_directory_uri() . '/js/admin-woocommerce-product.min.js', array( 'jquery', 'underscore' ), '', true );
+			wp_enqueue_script( 'wsu-press-product', get_stylesheet_directory_uri() . '/js/admin-woocommerce-product.min.js', array( 'jquery', 'underscore', 'jquery-ui-autocomplete' ), '', true );
+			wp_localize_script( 'wsu-press-product', 'wsu_press_authors', $this->autocomplete_authors() );
 		}
 
 		if ( 'edit.php' === $hook_suffix ) {
 			wp_enqueue_style( 'wsu-press-product-list-table', get_stylesheet_directory_uri() . '/admin-css/woocommerce-product-list-table.css' );
+		}
+	}
+
+	/**
+	 * Return a list of authors.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array
+	 */
+	public function autocomplete_authors() {
+		$authors = get_terms( array(
+			'taxonomy' => 'product-author',
+			'hide_empty' => false,
+			'fields' => 'names',
+		) );
+
+		if ( ! empty( $authors ) && ! is_wp_error( $authors ) ) {
+			return $authors;
+		} else {
+			return array();
 		}
 	}
 
@@ -133,7 +155,7 @@ class WSU_Press_Extended_WooCommerce {
 				<label <?php if ( $author ) { echo 'class="screen-reader-text"'; } ?>
 					   for="wsu-press-product-author">Author</label>
 				<input type="text"
-					   class="widefat"
+					   class="widefat wsu-press-attribution-input"
 					   name="wsu_press_product_author"
 					   id="wsu-press-product-author"
 					   value="<?php echo esc_attr( $author ); ?>"
@@ -149,6 +171,7 @@ class WSU_Press_Extended_WooCommerce {
 						<label class="screen-reader-text"
 							   for="wsu-press-product-attribution-<?php echo esc_attr( $i ); ?>">Additional Attribution</label>
 						<input type="text"
+							   class="wsu-press-attribution-input"
 							   name="wsu_press_product_attribution[]"
 							   id="wsu-press-product-attribution-<?php echo esc_attr( $i ); ?>"
 							   value="<?php echo esc_attr( $value ); ?>"
@@ -169,6 +192,7 @@ class WSU_Press_Extended_WooCommerce {
 			<p class="wsu-press-product-field-wrapper wsu-press-product-attribution">
 				<label for="wsu-press-product-attribution-<%= number %>">Additional Attribution</label>
 				<input type="text"
+					   class="wsu-press-attribution-input"
 					   name="wsu_press_product_attribution[]"
 					   id="wsu-press-product-attribution-<%= number %>"
 					   value=""

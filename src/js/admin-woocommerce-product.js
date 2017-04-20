@@ -1,5 +1,5 @@
 /* global _ */
-( function( $ ) {
+( function( $, window ) {
 
 	var $extra_fields = $( ".wsu-press-extra-product-fields" ),
 		attribution_template = _.template( $( "#wsu-press-product-attribution-template" ).html() ),
@@ -31,4 +31,41 @@
 	$extra_fields.on( "click", ".remove-attribution", function() {
 		$( this ).closest( ".wsu-press-product-attribution" ).remove();
 	} );
-}( jQuery ) );
+
+	// Use jQuery UI Autocomplete to suggest Authors.
+	$extra_fields.on( "focus", ".wsu-press-attribution-input", function() {
+		$( this ).autocomplete( {
+			minLength: 3,
+			source: function( request, response ) {
+				response( $.ui.autocomplete.filter(
+					window.wsu_press_authors, extract_last( request.term )
+				) );
+			},
+			focus: function() {
+				return false;
+			},
+			open: function() {
+				$( this ).autocomplete( "widget" ).addClass( "wsu-press-authors-menu" );
+			},
+			select: function( event, ui ) {
+				var terms = split( this.value );
+
+				terms.pop();
+				terms.push( ui.item.value );
+				terms.push( "" );
+
+				this.value = terms.join( " " ).replace( /\s+$/, "" );
+
+				return false;
+			}
+		} );
+	} );
+
+	function split( val ) {
+		return val.split( / \s*/ );
+	}
+
+	function extract_last( term ) {
+		return split( term ).pop();
+	}
+}( jQuery, window ) );
