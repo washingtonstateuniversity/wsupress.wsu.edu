@@ -1,6 +1,7 @@
 <?php
 
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-extended-woocommerce.php' );
+require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-author-taxonomy.php' );
 
 add_action( 'after_setup_theme', 'WSU_Press_Extended_WooCommerce' );
 /**
@@ -12,6 +13,18 @@ add_action( 'after_setup_theme', 'WSU_Press_Extended_WooCommerce' );
  */
 function WSU_Press_Extended_WooCommerce() {
 	return WSU_Press_Extended_WooCommerce::get_instance();
+}
+
+add_action( 'after_setup_theme', 'WSU_Press_Author_Taxonomy' );
+/**
+ * Starts the WSU Press authors functionality.
+ *
+ * @since 0.1.0
+ *
+ * @return \WSU_Press_Author_Taxonomy
+ */
+function WSU_Press_Author_Taxonomy() {
+	return WSU_Press_Author_Taxonomy::get_instance();
 }
 
 /**
