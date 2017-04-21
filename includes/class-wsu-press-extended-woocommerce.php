@@ -66,6 +66,7 @@ class WSU_Press_Extended_WooCommerce {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'save_post_product', array( $this, 'save_product' ), 10, 2 );
 		add_filter( 'pre_option_woocommerce_ship_to_destination', array( $this, 'force_ship_to_billing' ) );
+		add_filter( 'woocommerce_product_tabs', array( $this, 'short_quotes_tab' ) );
 	}
 
 	/**
@@ -352,4 +353,37 @@ class WSU_Press_Extended_WooCommerce {
 	public function force_ship_to_billing() {
 		return 'billing_only';
 	}
+
+	/**
+	 * Adds a tab for short quotes.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $tabs
+	 *
+	 * @return array
+	 */
+	public function short_quotes_tab( $tabs ) {
+		if ( get_post_meta( get_the_ID(), '_wsu_press_product_short_quotes', true ) ) {
+			$tabs['short_quotes'] = array(
+				'title' => 'Short Quotes',
+				'priority' => 11,
+				'callback' => array( $this, 'display_short_quotes_panel' ),
+			);
+		}
+
+		return $tabs;
+	}
+
+	/**
+	 * Displays the short quotes panel.
+	 *
+	 * @since 0.1.0
+	 */
+	public function display_short_quotes_panel() {
+		?><h2>Short Quotes</h2><?php
+		$short_quotes = get_post_meta( get_the_ID(), '_wsu_press_product_short_quotes', true );
+		echo wp_kses_post( apply_filters( 'the_content', $short_quotes ) );
+	}
+
 }
