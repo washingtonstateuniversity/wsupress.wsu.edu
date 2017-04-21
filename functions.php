@@ -3,6 +3,16 @@
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-extended-woocommerce.php' );
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-author-taxonomy.php' );
 
+add_filter( 'spine_child_theme_version', 'wsu_press_theme_version' );
+/**
+ * Provides a theme version for use in cache busting.
+ *
+ * @since 0.1.0
+ */
+function wsu_press_theme_version() {
+	return '0.1.0';
+}
+
 add_action( 'after_setup_theme', 'WSU_Press_Extended_WooCommerce' );
 /**
  * Starts the class for extending WooCommerce products.
