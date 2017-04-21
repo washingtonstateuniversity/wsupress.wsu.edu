@@ -135,6 +135,7 @@ class WSU_Press_Extended_WooCommerce {
 		$subtitle = get_post_meta( $post->ID, 'wsu_press_product_subtitle', true );
 		$author = get_post_meta( $post->ID, 'wsu_press_product_author', true );
 		$attribution = get_post_meta( $post->ID, 'wsu_press_product_attribution', true );
+		$authors = get_the_terms( $post->ID, 'product-author' );
 		?>
 
 		<div class="wsu-press-extra-product-fields">
@@ -186,6 +187,16 @@ class WSU_Press_Extended_WooCommerce {
 
 			<p><a href="#" class="hide-if-no-js wsu-press-product-add-attribution" >+ Add another attribution field</a></p>
 
+			<div class="wsu-press-product-authors">
+				<?php
+				if ( $authors && ! is_wp_error( $authors ) ) {
+					foreach ( $authors as $term ) {
+						?><input type="hidden" name="_wsu_press_author[]" value="<?php echo esc_attr( $term->name ); ?>" /><?php
+					}
+				}
+				?>
+			</div>
+
 		</div>
 
 		<script type="text/template" id="wsu-press-product-attribution-template">
@@ -200,6 +211,10 @@ class WSU_Press_Extended_WooCommerce {
 					   autocomplete="off" />
 				<button class="button remove-attribution" type="button">Remove</button>
 			</p>
+		</script>
+
+		<script type="text/template" id="wsu-press-product-author-template">
+			<input type="hidden" name="_wsu_press_author[]" value="<%= value %>" />
 		</script>
 
 		<?php
@@ -262,6 +277,22 @@ class WSU_Press_Extended_WooCommerce {
 			} else {
 				delete_post_meta( $post_id, $key );
 			}
+		}
+
+		// Add author terms.
+		if ( isset( $_POST['_wsu_press_author'] ) && is_array( $_POST['_wsu_press_author'] ) ) {
+			$author_meta = get_post_meta( $post_id, 'wsu_press_product_author', true );
+			$attribution_meta = get_post_meta( $post_id, 'wsu_press_product_attribution', true );
+			$attribution = ( $attribution_meta ) ? $author_meta . implode( $attribution_meta ) : $author_meta;
+			$authors = array();
+
+			foreach ( $_POST['_wsu_press_author'] as $author ) {
+				if ( false !== strpos( $attribution, $author ) ) {
+					$authors[] = $author;
+				}
+			}
+
+			wp_set_object_terms( $post_id, $authors, 'product-author' );
 		}
 	}
 

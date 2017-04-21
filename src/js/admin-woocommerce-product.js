@@ -2,8 +2,10 @@
 ( function( $, window ) {
 
 	var $extra_fields = $( ".wsu-press-extra-product-fields" ),
+		$add_attribution = $( ".wsu-press-product-add-attribution" ),
+		$all_authors = $( ".wsu-press-product-authors" ),
 		attribution_template = _.template( $( "#wsu-press-product-attribution-template" ).html() ),
-		$add_attribution = $( ".wsu-press-product-add-attribution" );
+		author_template = _.template( $( "#wsu-press-product-author-template" ).html() );
 
 	// Mimic the `wptitlehint` functionality.
 	$extra_fields.on( "click", "label", function() {
@@ -55,6 +57,8 @@
 				terms.push( "" );
 
 				this.value = terms.join( " " ).replace( /\s+$/, "" );
+
+				$all_authors.append( author_template( { value: ui.item.value } ) );
 
 				return false;
 			}
