@@ -21,7 +21,7 @@ class WSU_Press_Author_Taxonomy {
 	 * Maintain and return the one instance. Initiate hooks when
 	 * called the first time.
 	 *
-	 * @since 0.0.12
+	 * @since 0.1.0
 	 *
 	 * @return \WSU_Press_Author_Taxonomy
 	 */
