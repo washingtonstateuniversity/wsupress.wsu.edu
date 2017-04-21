@@ -31,6 +31,11 @@ class WSU_Press_Extended_WooCommerce {
 			'type' => 'array',
 			'sanitize_callback' => 'WSUWP_People_Post_Type::sanitize_additional_attribution',
 		),
+		'_wsu_press_product_short_quotes' => array(
+			'description' => 'Short Quotes',
+			'type' => 'string',
+			'sanitize_callback' => 'wp_kses_post',
+		),
 	);
 
 	/**
@@ -58,6 +63,7 @@ class WSU_Press_Extended_WooCommerce {
 		add_action( 'init', array( $this, 'register_meta' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'edit_form_after_title', array( $this, 'edit_form_after_title' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'save_post_product', array( $this, 'save_product' ), 10, 2 );
 		add_filter( 'pre_option_woocommerce_ship_to_destination', array( $this, 'force_ship_to_billing' ) );
 	}
@@ -220,6 +226,45 @@ class WSU_Press_Extended_WooCommerce {
 		<?php
 		// Add a metabox context.
 		$test = do_meta_boxes( get_current_screen(), 'wsu_press_product', $post );
+	}
+
+	/**
+	 * Add the meta box used to capture short quotes.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $post_type
+	 */
+	public function add_meta_boxes( $post_type ) {
+		if ( 'product' !== $post_type ) {
+			return;
+		}
+
+		add_meta_box(
+			'wsu-press-short-quotes',
+			'Short Quotes',
+			array( $this, 'display_short_quotes_meta_box' ),
+			null,
+			'normal',
+			'high'
+		);
+	}
+
+	/**
+	 * Captures short quotes.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param WP_Post $post
+	 */
+	public function display_short_quotes_meta_box( $post ) {
+		$value = get_post_meta( $post->ID, '_wsu_press_product_short_quotes', true );
+
+		$wp_editor_settings = array(
+			'textarea_rows' => 8,
+		);
+
+		wp_editor( $value, '_wsu_press_product_short_quotes', $wp_editor_settings );
 	}
 
 	/**
