@@ -37,3 +37,23 @@
 #wsu_press_product-sortables {
 	min-height: 10px;
 }
+
+.wsu-press-product-authors {
+	display: none;
+}
+
+/* jQuery UI Autocomplete touch-ups */
+.wsu-press-authors-menu .ui-menu-item {
+	box-sizing: border-box;
+}
+
+.wsu-press-authors-menu.ui-widget-content .ui-state-focus,
+.wsu-press-authors-menu.ui-widget-content .ui-state-active {
+	margin-left: 0;
+}
+
+.wsu-press-authors-menu.ui-widget-content .ui-state-focus {
+	background: #0073aa;
+	border: none;
+	color: #fff;
+}

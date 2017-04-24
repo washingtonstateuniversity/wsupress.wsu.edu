@@ -9,7 +9,7 @@ class WSU_Press_Extended_WooCommerce {
 	private static $instance;
 
 	/**
-	 * A list of post meta keys associated with a person.
+	 * A list of post meta keys associated with a product.
 	 *
 	 * @since 0.0.12
 	 *
@@ -88,11 +88,33 @@ class WSU_Press_Extended_WooCommerce {
 
 		if ( in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) ) {
 			wp_enqueue_style( 'wsu-press-product', get_stylesheet_directory_uri() . '/admin-css/woocommerce-product.css' );
-			wp_enqueue_script( 'wsu-press-product', get_stylesheet_directory_uri() . '/js/admin-woocommerce-product.min.js', array( 'jquery', 'underscore' ), '', true );
+			wp_enqueue_script( 'wsu-press-product', get_stylesheet_directory_uri() . '/js/admin-woocommerce-product.min.js', array( 'jquery', 'underscore', 'jquery-ui-autocomplete' ), '', true );
+			wp_localize_script( 'wsu-press-product', 'wsu_press_authors', $this->autocomplete_authors() );
 		}
 
 		if ( 'edit.php' === $hook_suffix ) {
 			wp_enqueue_style( 'wsu-press-product-list-table', get_stylesheet_directory_uri() . '/admin-css/woocommerce-product-list-table.css' );
+		}
+	}
+
+	/**
+	 * Return a list of authors.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array
+	 */
+	public function autocomplete_authors() {
+		$authors = get_terms( array(
+			'taxonomy' => 'product-author',
+			'hide_empty' => false,
+			'fields' => 'names',
+		) );
+
+		if ( ! empty( $authors ) && ! is_wp_error( $authors ) ) {
+			return $authors;
+		} else {
+			return array();
 		}
 	}
 
@@ -113,6 +135,7 @@ class WSU_Press_Extended_WooCommerce {
 		$subtitle = get_post_meta( $post->ID, 'wsu_press_product_subtitle', true );
 		$author = get_post_meta( $post->ID, 'wsu_press_product_author', true );
 		$attribution = get_post_meta( $post->ID, 'wsu_press_product_attribution', true );
+		$authors = get_the_terms( $post->ID, 'product-author' );
 		?>
 
 		<div class="wsu-press-extra-product-fields">
@@ -133,7 +156,7 @@ class WSU_Press_Extended_WooCommerce {
 				<label <?php if ( $author ) { echo 'class="screen-reader-text"'; } ?>
 					   for="wsu-press-product-author">Author</label>
 				<input type="text"
-					   class="widefat"
+					   class="widefat wsu-press-attribution-input"
 					   name="wsu_press_product_author"
 					   id="wsu-press-product-author"
 					   value="<?php echo esc_attr( $author ); ?>"
@@ -149,6 +172,7 @@ class WSU_Press_Extended_WooCommerce {
 						<label class="screen-reader-text"
 							   for="wsu-press-product-attribution-<?php echo esc_attr( $i ); ?>">Additional Attribution</label>
 						<input type="text"
+							   class="wsu-press-attribution-input"
 							   name="wsu_press_product_attribution[]"
 							   id="wsu-press-product-attribution-<?php echo esc_attr( $i ); ?>"
 							   value="<?php echo esc_attr( $value ); ?>"
@@ -163,12 +187,23 @@ class WSU_Press_Extended_WooCommerce {
 
 			<p><a href="#" class="hide-if-no-js wsu-press-product-add-attribution" >+ Add another attribution field</a></p>
 
+			<div class="wsu-press-product-authors">
+				<?php
+				if ( $authors && ! is_wp_error( $authors ) ) {
+					foreach ( $authors as $term ) {
+						?><input type="hidden" name="_wsu_press_author[]" value="<?php echo esc_attr( $term->name ); ?>" /><?php
+					}
+				}
+				?>
+			</div>
+
 		</div>
 
 		<script type="text/template" id="wsu-press-product-attribution-template">
 			<p class="wsu-press-product-field-wrapper wsu-press-product-attribution">
 				<label for="wsu-press-product-attribution-<%= number %>">Additional Attribution</label>
 				<input type="text"
+					   class="wsu-press-attribution-input"
 					   name="wsu_press_product_attribution[]"
 					   id="wsu-press-product-attribution-<%= number %>"
 					   value=""
@@ -176,6 +211,10 @@ class WSU_Press_Extended_WooCommerce {
 					   autocomplete="off" />
 				<button class="button remove-attribution" type="button">Remove</button>
 			</p>
+		</script>
+
+		<script type="text/template" id="wsu-press-product-author-template">
+			<input type="hidden" name="_wsu_press_author[]" value="<%= value %>" />
 		</script>
 
 		<?php
@@ -238,6 +277,22 @@ class WSU_Press_Extended_WooCommerce {
 			} else {
 				delete_post_meta( $post_id, $key );
 			}
+		}
+
+		// Add author terms.
+		if ( isset( $_POST['_wsu_press_author'] ) && is_array( $_POST['_wsu_press_author'] ) ) {
+			$author_meta = get_post_meta( $post_id, 'wsu_press_product_author', true );
+			$attribution_meta = get_post_meta( $post_id, 'wsu_press_product_attribution', true );
+			$attribution = ( $attribution_meta ) ? $author_meta . implode( $attribution_meta ) : $author_meta;
+			$authors = array();
+
+			foreach ( $_POST['_wsu_press_author'] as $author ) {
+				if ( false !== strpos( $attribution, $author ) ) {
+					$authors[] = $author;
+				}
+			}
+
+			wp_set_object_terms( $post_id, $authors, 'product-author' );
 		}
 	}
 
