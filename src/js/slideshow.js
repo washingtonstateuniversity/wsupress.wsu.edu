@@ -6,6 +6,11 @@
 		var $item_wrapper = $( this ).find( ".wsu-press-slideshow-items" ),
 			$items = $item_wrapper.find( "figure" );
 
+		// Bail if there are no items in the slideshow.
+		if ( !$items.length ) {
+			return;
+		}
+
 		// Add clones of the whole set until there are at least nine items.
 		// (This is so we don't get the same item adjacent to itself.)
 		if ( 9 > $items.length ) {
@@ -14,8 +19,9 @@
 			}
 		}
 
+		// Change the `aria-hidden` attribute of the first item to `false`.
 		// Move the last four items to the front of the slideshow.
-		$items.first().before( $item_wrapper.find( "figure" ).slice( -4 ) );
+		$items.first().attr( "aria-hidden", "false" ).before( $item_wrapper.find( "figure" ).slice( -4 ) );
 	} );
 
 	// Control button handling.
