@@ -42,6 +42,7 @@ class WSU_Press_Slideshow_Shortcode {
 	 */
 	public function display_wsu_press_slideshow( $atts ) {
 		$defaults = array(
+			'title' => '',
 			'count' => 5,
 			'product_category_slug' => '',
 		);
@@ -67,56 +68,70 @@ class WSU_Press_Slideshow_Shortcode {
 			return '';
 		}
 
-		wp_enqueue_script( 'wsu-cycle', get_template_directory_uri() . '/js/cycle2/jquery.cycle2.min.js', array( 'jquery' ), wsu_press_theme_version(), true );
-		wp_enqueue_script( 'cycle_carousel', get_stylesheet_directory_uri() . '/js/jquery.cycle2.carousel.min.js', array( 'wsu-cycle' ), wsu_press_theme_version(), true );
-		wp_enqueue_script( 'cycle_options', get_stylesheet_directory_uri() . '/js/cycle2-options.min.js', array( 'cycle_carousel' ), wsu_press_theme_version(), true );
+		wp_enqueue_script( 'wsu-press-slideshow', get_stylesheet_directory_uri() . '/js/slideshow.min.js', array( 'jquery' ), wsu_press_theme_version(), true );
 
 		ob_start();
 		?>
 
-		<div class="wsu-press-slideshow">
-			<svg class="slideshow-control prev" xmlns="http://www.w3.org/2000/svg" width="11" height="40" viewBox="0 0 10.9 40">
-				<path d="M9.9 40c0.1 0 0.3 0 0.4-0.1 0.5-0.2 0.7-0.8 0.5-1.3L2.2 20l8.6-18.6c0.2-0.5 0-1.1-0.5-1.3C9.8-0.1 9.2 0.1 9 0.6L0 20l9 19.4C9.2 39.8 9.5 40 9.9 40z"/>
-			</svg>
-			<svg class="slideshow-control next" xmlns="http://www.w3.org/2000/svg" width="11" height="40" viewBox="0 0 10.9 40">
-				<path d="M1 40c-0.1 0-0.3 0-0.4-0.1 -0.5-0.2-0.7-0.8-0.5-1.3L8.7 20 0.1 1.4C-0.1 0.9 0.1 0.3 0.6 0.1 1.1-0.1 1.7 0.1 1.9 0.6L10.9 20 1.9 39.4C1.7 39.8 1.4 40 1 40z"/>
-			</svg>
+		<h2 id="wsu-press-slideshow-heading-<?php echo esc_attr( sanitize_title( $atts['title'] ) ); ?>">
+			<?php echo esc_html( $atts['title'] ); ?><span class="screen-reader-text"> Slideshow</span>
+		</h2>
 
-		<?php
-		while ( $query->have_posts() ) {
-			$query->the_post();
+		<div class="wsu-press-slideshow"
+			 role="region"
+			 aria-labelledby="wsu-press-slideshow-heading-<?php echo esc_attr( sanitize_title( $atts['title'] ) ); ?>">
 
-			if ( ! get_the_post_thumbnail() ) {
-				continue;
-			}
+			<button type="button" role="button" aria-label="previous">
+				<svg xmlns="http://www.w3.org/2000/svg" width="11" height="40" viewBox="0 0 10.9 40">
+					<path fill="#717171" d="M9.9 40c0.1 0 0.3 0 0.4-0.1 0.5-0.2 0.7-0.8 0.5-1.3L2.2 20l8.6-18.6c0.2-0.5 0-1.1-0.5-1.3C9.8-0.1 9.2 0.1 9 0.6L0 20l9 19.4C9.2 39.8 9.5 40 9.9 40z"/>
+				</svg>
+			</button>
 
-			$subtitle = get_post_meta( get_the_ID(), 'wsu_press_product_subtitle', true );
-			$author = get_post_meta( get_the_ID(), 'wsu_press_product_author', true );
-			?>
-			<article class="slideshow-item">
+			<button type="button" role="button" aria-label="next">
+				<svg xmlns="http://www.w3.org/2000/svg" width="11" height="40" viewBox="0 0 10.9 40">
+					<path fill="#717171" d="M1 40c-0.1 0-0.3 0-0.4-0.1 -0.5-0.2-0.7-0.8-0.5-1.3L8.7 20 0.1 1.4C-0.1 0.9 0.1 0.3 0.6 0.1 1.1-0.1 1.7 0.1 1.9 0.6L10.9 20 1.9 39.4C1.7 39.8 1.4 40 1 40z"/>
+				</svg>
+			</button>
 
-				<a href="<?php the_permalink(); ?>">
-					<?php the_post_thumbnail( 'shop_thumbnail' ); ?>
-				</a>
+			<div class="wsu-press-slideshow-items">
 
-				<div class="slideshow-item-about">
-
-					<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-
-					<?php if ( $subtitle ) { ?>
-					<p class="subtitle"><?php echo esc_html( $subtitle ); ?></p>
-					<?php } ?>
-
-					<?php if ( $author ) { ?>
-					<p class="author"><?php echo esc_html( $author ); ?></p>
-					<?php } ?>
-
-				</div>
-
-			</article>
 			<?php
-		}
-		?>
+			while ( $query->have_posts() ) {
+				$query->the_post();
+
+				if ( ! get_the_post_thumbnail() ) {
+					continue;
+				}
+
+				$subtitle = get_post_meta( get_the_ID(), 'wsu_press_product_subtitle', true );
+				$author = get_post_meta( get_the_ID(), 'wsu_press_product_author', true );
+				?>
+				<figure aria-hidden="<?php echo ( 0 === $query->current_post ) ? 'false' : 'true'; ?>">
+
+					<a href="<?php the_permalink(); ?>">
+						<?php the_post_thumbnail( 'medium' ); ?>
+					</a>
+
+					<figcaption>
+
+						<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+
+						<?php if ( $subtitle ) { ?>
+						<p class="subtitle"><?php echo esc_html( $subtitle ); ?></p>
+						<?php } ?>
+
+						<?php if ( $author ) { ?>
+						<p class="author"><?php echo esc_html( $author ); ?></p>
+						<?php } ?>
+
+					</figcaption>
+
+				</figure>
+				<?php
+			}
+			?>
+
+			</div>
 
 		</div>
 
