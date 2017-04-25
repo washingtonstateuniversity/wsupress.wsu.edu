@@ -74,7 +74,7 @@ function woocommerce_support() {
 }
 
 /**
- * Links product author terms for front end product views.
+ * Links product authors to their term pages.
  *
  * @since 0.1.0
  *
