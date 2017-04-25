@@ -72,3 +72,24 @@ add_action( 'after_setup_theme', 'woocommerce_support' );
 function woocommerce_support() {
 	add_theme_support( 'woocommerce' );
 }
+
+/**
+ * Links product authors to their term pages.
+ *
+ * @since 0.1.0
+ *
+ * @param string $meta
+ * @param mixed  $authors
+ *
+ * @return string
+ */
+function link_wsu_press_authors( $meta, $authors ) {
+	if ( $authors && ! is_wp_error( $authors ) ) {
+		foreach ( $authors as $term ) {
+			$link = '<a href="' . esc_url( get_term_link( $term->slug, 'product-author' ) ) . '">' . esc_html( $term->name ) . '</a>';
+			$meta = str_replace( $term->name, $link, $meta );
+		}
+	}
+
+	return $meta;
+}
