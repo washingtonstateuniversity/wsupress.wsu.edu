@@ -20,17 +20,21 @@ if ( $subtitle = get_post_meta( get_the_ID(), 'wsu_press_product_subtitle', true
 	<?php
 }
 
+$authors = get_the_terms( get_the_ID(), 'product-author' );
+
 if ( $author = get_post_meta( get_the_ID(), 'wsu_press_product_author', true ) ) {
+	$author = link_wsu_press_authors( $author, $authors );
 	?>
-	<p class="wsu-press-product-author"><?php echo esc_html( $author ); ?></p>
+	<p class="wsu-press-product-author"><?php echo wp_kses_post( $author ); ?></p>
 	<?php
 }
 
 if ( $attribution = get_post_meta( get_the_ID(), 'wsu_press_product_attribution', true ) ) {
 	if ( is_array( $attribution ) ) {
 		foreach ( $attribution as $attribution ) {
+			$attribution = link_wsu_press_authors( $attribution, $authors );
 			?>
-			<p class="wsu-press-product-extra-attribution"><?php echo esc_html( $attribution ); ?></p>
+			<p class="wsu-press-product-extra-attribution"><?php echo wp_kses_post( $attribution ); ?></p>
 			<?php
 		}
 	}
