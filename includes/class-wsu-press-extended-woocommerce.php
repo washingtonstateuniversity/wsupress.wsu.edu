@@ -31,6 +31,11 @@ class WSU_Press_Extended_WooCommerce {
 			'type' => 'array',
 			'sanitize_callback' => 'WSUWP_People_Post_Type::sanitize_additional_attribution',
 		),
+		'_wsu_press_product_short_quotes' => array(
+			'description' => 'Short Quotes',
+			'type' => 'string',
+			'sanitize_callback' => 'wp_kses_post',
+		),
 	);
 
 	/**
@@ -58,8 +63,10 @@ class WSU_Press_Extended_WooCommerce {
 		add_action( 'init', array( $this, 'register_meta' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'edit_form_after_title', array( $this, 'edit_form_after_title' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'save_post_product', array( $this, 'save_product' ), 10, 2 );
 		add_filter( 'pre_option_woocommerce_ship_to_destination', array( $this, 'force_ship_to_billing' ) );
+		add_filter( 'woocommerce_product_tabs', array( $this, 'short_quotes_tab' ) );
 	}
 
 	/**
@@ -223,6 +230,45 @@ class WSU_Press_Extended_WooCommerce {
 	}
 
 	/**
+	 * Add the meta box used to capture short quotes.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $post_type
+	 */
+	public function add_meta_boxes( $post_type ) {
+		if ( 'product' !== $post_type ) {
+			return;
+		}
+
+		add_meta_box(
+			'wsu-press-short-quotes',
+			'Short Quotes',
+			array( $this, 'display_short_quotes_meta_box' ),
+			null,
+			'normal',
+			'high'
+		);
+	}
+
+	/**
+	 * Captures short quotes.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param WP_Post $post
+	 */
+	public function display_short_quotes_meta_box( $post ) {
+		$value = get_post_meta( $post->ID, '_wsu_press_product_short_quotes', true );
+
+		$wp_editor_settings = array(
+			'textarea_rows' => 8,
+		);
+
+		wp_editor( $value, '_wsu_press_product_short_quotes', $wp_editor_settings );
+	}
+
+	/**
 	 * Sanitizes additional attribution fields.
 	 *
 	 * @since 0.0.12
@@ -307,4 +353,37 @@ class WSU_Press_Extended_WooCommerce {
 	public function force_ship_to_billing() {
 		return 'billing_only';
 	}
+
+	/**
+	 * Adds a tab for short quotes.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $tabs
+	 *
+	 * @return array
+	 */
+	public function short_quotes_tab( $tabs ) {
+		if ( get_post_meta( get_the_ID(), '_wsu_press_product_short_quotes', true ) ) {
+			$tabs['short_quotes'] = array(
+				'title' => 'Short Quotes',
+				'priority' => 11,
+				'callback' => array( $this, 'display_short_quotes_panel' ),
+			);
+		}
+
+		return $tabs;
+	}
+
+	/**
+	 * Displays the short quotes panel.
+	 *
+	 * @since 0.1.0
+	 */
+	public function display_short_quotes_panel() {
+		?><h2>Short Quotes</h2><?php
+		$short_quotes = get_post_meta( get_the_ID(), '_wsu_press_product_short_quotes', true );
+		echo wp_kses_post( apply_filters( 'the_content', $short_quotes ) );
+	}
+
 }
