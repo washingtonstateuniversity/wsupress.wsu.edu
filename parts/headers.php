@@ -41,7 +41,13 @@ if ( spine_get_option( 'main_header_show' ) === true ) :
 		</sub>
 
 	</div>
-	<div id="header-links"><ul><li><a href="/#/">Browse Books</a></li><li><a href="/#/">News</a></li><li><a href="/#/">Calendar</a></li></ul></div>
+	<div id="header-links">
+		<ul>
+			<li><a href="<?php echo esc_url( trailingslashit( get_home_url() ) ); ?>product-category/all-titles/">Browse Books</a></li>
+			<li><a href="<?php echo esc_url( trailingslashit( get_home_url() ) ); ?>news/">News</a></li>
+			<li><a href="<?php echo esc_url( trailingslashit( get_home_url() ) ); ?>events/">Calendar</a></li>
+		</ul>
+	</div>
 
 	<div id="press-header">
 
@@ -50,7 +56,7 @@ if ( spine_get_option( 'main_header_show' ) === true ) :
 	</div>
 
 	<div id="press-slogan">
-	Telling unique, focused stories of the Northwest
+	Connecting curious minds with uncommon, undeniably Northwest reads
 	</div>
 
 	</div>
