@@ -32,7 +32,7 @@ class WSU_Press_Extended_WooCommerce {
 			'sanitize_callback' => 'WSUWP_People_Post_Type::sanitize_additional_attribution',
 		),
 		'_wsu_press_product_short_quotes' => array(
-			'description' => 'Short Quotes',
+			'description' => 'Recognition',
 			'type' => 'string',
 			'sanitize_callback' => 'wp_kses_post',
 		),
@@ -243,7 +243,7 @@ class WSU_Press_Extended_WooCommerce {
 
 		add_meta_box(
 			'wsu-press-short-quotes',
-			'Short Quotes',
+			'Recognition',
 			array( $this, 'display_short_quotes_meta_box' ),
 			null,
 			'normal',
@@ -366,7 +366,7 @@ class WSU_Press_Extended_WooCommerce {
 	public function short_quotes_tab( $tabs ) {
 		if ( get_post_meta( get_the_ID(), '_wsu_press_product_short_quotes', true ) ) {
 			$tabs['short_quotes'] = array(
-				'title' => 'Short Quotes',
+				'title' => 'Recognition',
 				'priority' => 11,
 				'callback' => array( $this, 'display_short_quotes_panel' ),
 			);
