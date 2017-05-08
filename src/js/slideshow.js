@@ -22,6 +22,9 @@
 		// Change the `aria-hidden` attribute of the first item to `false`.
 		// Move the last four items to the front of the slideshow.
 		$items.first().attr( "aria-hidden", "false" ).before( $item_wrapper.find( "figure" ).slice( -4 ) );
+
+		// Set `tabindex` for each item other than the active one to `-1`.
+		$item_wrapper.find( "figure[aria-hidden='true'] a" ).attr( "tabindex", "-1" );
 	} );
 
 	// Control button handling.
@@ -39,8 +42,8 @@
 			duration: 500,
 			easing: "swing",
 			start: function() {
-				$active_slide.attr( "aria-hidden", "true" );
-				$adjacent_slide.attr( "aria-hidden", "false" );
+				$active_slide.attr( "aria-hidden", "true" ).find( "a" ).attr( "tabindex", "-1" );
+				$adjacent_slide.attr( "aria-hidden", "false" ).find( "a" ).removeAttr( "tabindex" );
 			},
 			complete: function() {
 				if ( "next" === direction ) {
