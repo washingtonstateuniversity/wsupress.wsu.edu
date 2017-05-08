@@ -42,34 +42,12 @@
 		$item_wrapper.find( "figure[aria-hidden='true'] a" ).attr( "tabindex", "-1" );
 	} );
 
-	// Control button handling.
+	// Control button navigation handling.
 	$( ".wsu-press-slideshow" ).on( "click", "button", function() {
 		var direction = $( this ).attr( "aria-label" ),
-			left_value = ( "next" === direction ) ? "-100%" : "100%",
-			$slideshow = $( this ).closest( ".wsu-press-slideshow" ),
-			$item_wrapper = $slideshow.find( ".wsu-press-slideshow-items" ),
-			$active_slide = $item_wrapper.find( "figure[aria-hidden='false']" ),
-			$adjacent_slide = ( "next" === direction ) ? $active_slide.next( "figure" ) : $active_slide.prev( "figure" );
+			$slideshow = $( this ).closest( ".wsu-press-slideshow" );
 
-		$item_wrapper.not( ":animated" ).animate( {
-			"left": left_value
-		}, {
-			duration: 500,
-			easing: "swing",
-			start: function() {
-				$active_slide.attr( "aria-hidden", "true" ).find( "a" ).attr( "tabindex", "-1" );
-				$adjacent_slide.attr( "aria-hidden", "false" ).find( "a" ).removeAttr( "tabindex" );
-			},
-			complete: function() {
-				if ( "next" === direction ) {
-					$item_wrapper.append( $item_wrapper.find( "figure:first" ) );
-				} else {
-					$item_wrapper.prepend( $item_wrapper.find( "figure:last" ) );
-				}
-
-				$item_wrapper.css( "left", "0" );
-			}
-		} );
+		navigate_slideshow_items( 1, direction, $slideshow );
 	} );
 
 	// Keyboard left/right arrow navigation handling.
@@ -89,4 +67,45 @@
 			$( this ).find( "figure[aria-hidden='false'] > a" ).focus();
 		}
 	} );
+
+	// Inactive item navigation handling.
+	$( ".wsu-press-slideshow" ).on( "click", "figure[aria-hidden='true']", function( e ) {
+		e.preventDefault();
+
+		var $slideshow = $( this ).closest( ".wsu-press-slideshow" ),
+			item_index = $( this ).index(),
+			active_item_index = $( this ).siblings( "figure[aria-hidden='false']" ).index(),
+			direction = ( item_index > active_item_index ) ? "next" : "previous",
+			move_by = Math.abs( active_item_index - item_index );
+
+		navigate_slideshow_items( move_by, direction, $slideshow );
+	} );
+
+	// Animate the slideshow.
+	function navigate_slideshow_items( move_by, direction, $slideshow ) {
+		var left_value = ( "next" === direction ) ? "-" + move_by + "00%" : move_by + "00%",
+			$item_wrapper = $slideshow.find( ".wsu-press-slideshow-items" ),
+			$active_item = $item_wrapper.find( "figure[aria-hidden='false']" ),
+			$new_active_item = ( "next" === direction ) ? $active_item.nextAll( "figure" ).eq( move_by - 1 ) : $active_item.prevAll( "figure" ).eq( move_by - 1 );
+
+		$item_wrapper.not( ":animated" ).animate( {
+			"left": left_value
+		}, {
+			duration: 500,
+			easing: "swing",
+			start: function() {
+				$active_item.attr( "aria-hidden", "true" ).find( "a" ).attr( "tabindex", "-1" );
+				$new_active_item.attr( "aria-hidden", "false" ).find( "a" ).removeAttr( "tabindex" );
+			},
+			complete: function() {
+				if ( "next" === direction ) {
+					$item_wrapper.append( $item_wrapper.find( "figure" ).slice( 0, move_by ) );
+				} else {
+					$item_wrapper.prepend( $item_wrapper.find( "figure" ).slice( "-" + move_by ) );
+				}
+
+				$item_wrapper.css( "left", 0 );
+			}
+		} );
+	}
 }( jQuery ) );

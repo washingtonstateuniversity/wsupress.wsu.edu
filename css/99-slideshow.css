@@ -61,10 +61,6 @@
 	padding: 0;
 }
 
-.wsu-press-slideshow figure[aria-hidden="true"] a {
-	pointer-events: none;
-}
-
 .wsu-press-slideshow figure img {
 	display: block;
 	opacity: .5;
@@ -88,7 +84,7 @@
 	width: 540%;
 }
 
-.wsu-press-slideshow figure[aria-hidden="false"] + figure figcaption {
+.wsu-press-slideshow figure[aria-hidden="false"] ~ figure figcaption {
 	left: 440%;
 }
 
