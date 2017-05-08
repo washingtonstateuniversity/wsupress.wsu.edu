@@ -55,4 +55,22 @@
 			}
 		} );
 	} );
+
+	// Keyboard left/right arrow navigation handling.
+	$( ".wsu-press-slideshow" ).keyup( function( e ) {
+		if ( e.which === 39 ) {
+			$( this ).find( "button[aria-label='next']" ).trigger( "click" );
+		}
+
+		if ( e.which === 37 ) {
+			$( this ).find( "button[aria-label='previous']" ).trigger( "click" );
+		}
+
+		// Change focus to the active slide if the focus is within a slide item.
+		// Otherwise, we'll lose the right/left arrow functionality once an item
+		// with focus is moved to the front or back of the slideshow.
+		if ( ( e.which === 39 || e.which === 37 ) && $( "a" ).is( ":focus" ) ) {
+			$( this ).find( "figure[aria-hidden='false'] > a" ).focus();
+		}
+	} );
 }( jQuery ) );
