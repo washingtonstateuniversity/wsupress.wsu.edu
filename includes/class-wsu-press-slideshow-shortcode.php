@@ -73,7 +73,8 @@ class WSU_Press_Slideshow_Shortcode {
 		ob_start();
 		?>
 
-		<h2 id="wsu-press-slideshow-heading-<?php echo esc_attr( sanitize_title( $atts['title'] ) ); ?>">
+		<h2 class="wsu-press-slideshow-heading"
+			id="wsu-press-slideshow-heading-<?php echo esc_attr( sanitize_title( $atts['title'] ) ); ?>">
 			<?php echo esc_html( $atts['title'] ); ?><span class="screen-reader-text"> Slideshow</span>
 		</h2>
 
