@@ -13,7 +13,7 @@ add_filter( 'spine_child_theme_version', 'wsu_press_theme_version' );
  * @since 0.1.0
  */
 function wsu_press_theme_version() {
-	return '0.1.2';
+	return '0.1.3';
 }
 
 add_action( 'after_setup_theme', 'WSU_Press_Extended_WooCommerce' );
