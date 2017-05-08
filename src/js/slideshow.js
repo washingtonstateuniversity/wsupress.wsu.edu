@@ -31,8 +31,7 @@
 			$slideshow = $( this ).closest( ".wsu-press-slideshow" ),
 			$item_wrapper = $slideshow.find( ".wsu-press-slideshow-items" ),
 			$active_slide = $item_wrapper.find( "figure[aria-hidden='false']" ),
-			$adjacent_slide = ( "next" === direction ) ? $active_slide.next( "figure" ) : $active_slide.prev( "figure" ),
-			$adjacent_slide_caption = $adjacent_slide.find( "figcaption" );
+			$adjacent_slide = ( "next" === direction ) ? $active_slide.next( "figure" ) : $active_slide.prev( "figure" );
 
 		$item_wrapper.not( ":animated" ).animate( {
 			"left": left_value
@@ -51,7 +50,6 @@
 				}
 
 				$item_wrapper.css( "left", "0" );
-				$adjacent_slide_caption.removeAttr( "style" );
 			}
 		} );
 	} );
