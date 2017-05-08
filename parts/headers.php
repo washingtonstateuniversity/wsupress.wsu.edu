@@ -22,9 +22,7 @@ $spine_main_header_values = spine_get_main_header();
 
 	<div id="header-links">
 		<ul>
-			<li><a href="<?php echo esc_url( trailingslashit( get_home_url() ) ); ?>product-category/all-titles/">Browse Books</a></li>
-			<li><a href="<?php echo esc_url( trailingslashit( get_home_url() ) ); ?>news/">News</a></li>
-			<li><a href="<?php echo esc_url( trailingslashit( get_home_url() ) ); ?>events/">Calendar</a></li>
+			<?php dynamic_sidebar( 'site-header' ); ?>
 		</ul>
 	</div>
 

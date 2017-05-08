@@ -4,6 +4,7 @@ require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-extended-woocomme
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-author-taxonomy.php' );
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-slideshow-shortcode.php' );
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-product-search-shortcode.php' );
+require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-header-link-widget.php' );
 
 add_filter( 'spine_child_theme_version', 'wsu_press_theme_version' );
 /**
@@ -92,4 +93,21 @@ function link_wsu_press_authors( $meta, $authors ) {
 	}
 
 	return $meta;
+}
+
+add_action( 'widgets_init', 'register_wsu_press_header_sidebar' );
+/**
+ * Registers the widget and sidebar to be used for the header links.
+ *
+ * @since 0.1.3
+ */
+function register_wsu_press_header_sidebar() {
+	register_widget( 'WSU_Press_Header_Link_Widget' );
+
+	$header_args = array(
+		'name' => 'Site Header Links',
+		'id' => 'site-header',
+	);
+
+	register_sidebar( $header_args );
 }
