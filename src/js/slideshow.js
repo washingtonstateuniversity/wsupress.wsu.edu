@@ -1,10 +1,25 @@
 ( function( $ ) {
 	"use strict";
 
-	// Configure slideshow items to achieve the infinite carousel effect.
+	// Add control buttons and configure slideshow items to achieve the infinite carousel effect.
 	$( ".wsu-press-slideshow" ).each( function() {
-		var $item_wrapper = $( this ).find( ".wsu-press-slideshow-items" ),
+		var $slideshow = $( this ),
+			$item_wrapper = $slideshow.find( ".wsu-press-slideshow-items" ),
 			$items = $item_wrapper.find( "figure" );
+
+		// Add control buttons.
+		$slideshow.prepend(
+			"<button type='button' role='button' aria-label='previous'>" +
+				"<svg xmlns='http://www.w3.org/2000/svg' width='11' height='40' viewBox='0 0 10.9 40'>" +
+					"<path fill='#717171' d='M9.9 40c0.1 0 0.3 0 0.4-0.1 0.5-0.2 0.7-0.8 0.5-1.3L2.2 20l8.6-18.6c0.2-0.5 0-1.1-0.5-1.3C9.8-0.1 9.2 0.1 9 0.6L0 20l9 19.4C9.2 39.8 9.5 40 9.9 40z'/>" +
+				"</svg>" +
+			"</button>" +
+			"<button type='button' role='button' aria-label='next'>" +
+				"<svg xmlns='http://www.w3.org/2000/svg' width='11' height='40' viewBox='0 0 10.9 40'>" +
+					"<path fill='#717171' d='M1 40c-0.1 0-0.3 0-0.4-0.1 -0.5-0.2-0.7-0.8-0.5-1.3L8.7 20 0.1 1.4C-0.1 0.9 0.1 0.3 0.6 0.1 1.1-0.1 1.7 0.1 1.9 0.6L10.9 20 1.9 39.4C1.7 39.8 1.4 40 1 40z'/>" +
+				"</svg>" +
+			"</button>"
+		);
 
 		// Bail if there are no items in the slideshow.
 		if ( !$items.length ) {
