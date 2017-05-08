@@ -73,25 +73,14 @@ class WSU_Press_Slideshow_Shortcode {
 		ob_start();
 		?>
 
-		<h2 id="wsu-press-slideshow-heading-<?php echo esc_attr( sanitize_title( $atts['title'] ) ); ?>">
+		<h2 class="wsu-press-slideshow-heading"
+			id="wsu-press-slideshow-heading-<?php echo esc_attr( sanitize_title( $atts['title'] ) ); ?>">
 			<?php echo esc_html( $atts['title'] ); ?><span class="screen-reader-text"> Slideshow</span>
 		</h2>
 
 		<div class="wsu-press-slideshow"
 			 role="region"
 			 aria-labelledby="wsu-press-slideshow-heading-<?php echo esc_attr( sanitize_title( $atts['title'] ) ); ?>">
-
-			<button type="button" role="button" aria-label="previous">
-				<svg xmlns="http://www.w3.org/2000/svg" width="11" height="40" viewBox="0 0 10.9 40">
-					<path fill="#717171" d="M9.9 40c0.1 0 0.3 0 0.4-0.1 0.5-0.2 0.7-0.8 0.5-1.3L2.2 20l8.6-18.6c0.2-0.5 0-1.1-0.5-1.3C9.8-0.1 9.2 0.1 9 0.6L0 20l9 19.4C9.2 39.8 9.5 40 9.9 40z"/>
-				</svg>
-			</button>
-
-			<button type="button" role="button" aria-label="next">
-				<svg xmlns="http://www.w3.org/2000/svg" width="11" height="40" viewBox="0 0 10.9 40">
-					<path fill="#717171" d="M1 40c-0.1 0-0.3 0-0.4-0.1 -0.5-0.2-0.7-0.8-0.5-1.3L8.7 20 0.1 1.4C-0.1 0.9 0.1 0.3 0.6 0.1 1.1-0.1 1.7 0.1 1.9 0.6L10.9 20 1.9 39.4C1.7 39.8 1.4 40 1 40z"/>
-				</svg>
-			</button>
 
 			<div class="wsu-press-slideshow-items">
 

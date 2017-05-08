@@ -61,10 +61,6 @@
 	padding: 0;
 }
 
-.wsu-press-slideshow figure[aria-hidden="true"] a {
-	pointer-events: none;
-}
-
 .wsu-press-slideshow figure img {
 	display: block;
 	opacity: .5;
@@ -79,22 +75,16 @@
 .wsu-press-slideshow figcaption {
 	background: #f3f3f3;
 	box-sizing: border-box;
-	left: -440%;
 	margin: 1.5rem -220% 0;
 	opacity: 0;
 	padding: .5rem 1rem;
 	position: relative;
-	transition: left .5s ease-in-out;
 	width: 540%;
 }
 
-.wsu-press-slideshow figure[aria-hidden="false"] + figure figcaption {
-	left: 440%;
-}
-
 .wsu-press-slideshow figure[aria-hidden="false"] figcaption {
-	left: 0;
 	opacity: 1;
+	transition: opacity .5s ease-in-out;
 	z-index: 1;
 }
 

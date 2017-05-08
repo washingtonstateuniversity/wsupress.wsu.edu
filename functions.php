@@ -4,6 +4,7 @@ require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-extended-woocomme
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-author-taxonomy.php' );
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-slideshow-shortcode.php' );
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-product-search-shortcode.php' );
+require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-header-link-widget.php' );
 
 add_filter( 'spine_child_theme_version', 'wsu_press_theme_version' );
 /**
@@ -92,4 +93,45 @@ function link_wsu_press_authors( $meta, $authors ) {
 	}
 
 	return $meta;
+}
+
+add_action( 'widgets_init', 'register_wsu_press_header_sidebar' );
+/**
+ * Registers the widget and sidebar to be used for the header links.
+ *
+ * @since 0.1.3
+ */
+function register_wsu_press_header_sidebar() {
+	register_widget( 'WSU_Press_Header_Link_Widget' );
+
+	$header_args = array(
+		'name' => 'Site Header Links',
+		'id' => 'site-header',
+	);
+
+	register_sidebar( $header_args );
+}
+
+add_filter( 'woocommerce_format_dimensions', 'wsu_press_format_dimensions', 10, 2 );
+/**
+ * Formats product dimensions.
+ *
+ * @since 0.1.3
+ */
+function wsu_press_format_dimensions( $dimension_string, $dimensions ) {
+	$reordered_dimensions = array(
+		$dimensions['width'],
+		$dimensions['length'],
+		$dimensions['height'],
+	);
+
+	$dimension_string = implode( ' x ', array_filter( array_map( 'wc_format_localized_decimal', $reordered_dimensions ) ) );
+
+	if ( ! empty( $dimension_string ) ) {
+		$dimension_string .= ' ' . get_option( 'woocommerce_dimension_unit' );
+	} else {
+		$dimension_string = __( 'N/A', 'woocommerce' );
+	}
+
+	return $dimension_string;
 }
