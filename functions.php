@@ -111,3 +111,27 @@ function register_wsu_press_header_sidebar() {
 
 	register_sidebar( $header_args );
 }
+
+add_filter( 'woocommerce_format_dimensions', 'wsu_press_format_dimensions', 10, 2 );
+/**
+ * Formats product dimensions.
+ *
+ * @since 0.1.3
+ */
+function wsu_press_format_dimensions( $dimension_string, $dimensions ) {
+	$reordered_dimensions = array(
+		$dimensions['width'],
+		$dimensions['length'],
+		$dimensions['height'],
+	);
+
+	$dimension_string = implode( ' x ', array_filter( array_map( 'wc_format_localized_decimal', $reordered_dimensions ) ) );
+
+	if ( ! empty( $dimension_string ) ) {
+		$dimension_string .= ' ' . get_option( 'woocommerce_dimension_unit' );
+	} else {
+		$dimension_string = __( 'N/A', 'woocommerce' );
+	}
+
+	return $dimension_string;
+}
