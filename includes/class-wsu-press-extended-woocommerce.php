@@ -381,7 +381,7 @@ class WSU_Press_Extended_WooCommerce {
 	 * @since 0.1.0
 	 */
 	public function display_short_quotes_panel() {
-		?><h2>Short Quotes</h2><?php
+		?><h2>Recognition</h2><?php
 		$short_quotes = get_post_meta( get_the_ID(), '_wsu_press_product_short_quotes', true );
 		echo wp_kses_post( apply_filters( 'the_content', $short_quotes ) );
 	}
