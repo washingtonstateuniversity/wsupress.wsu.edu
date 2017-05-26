@@ -40,14 +40,14 @@
 			if ( spine_has_thumbnail_image() ) {
 				?><figure class="article-thumbnail"><a href="<?php the_permalink(); ?>"><?php spine_the_thumbnail_image(); ?></a></figure><?php
 			} elseif ( spine_has_featured_image() ) {
-				?><figure class="article-thumbnail"><a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'spine-thumbnail_size' ); ?></a></figure><?php
+				?><figure class="article-thumbnail"><a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'shop_catalog' ); ?></a></figure><?php
 			}
 
 			// If a manual excerpt is available, default to that. If `<!--more-->` exists in content, default
 			// to that. If an option is set specifically to display excerpts, default to that. Otherwise show
 			// full content.
 			if ( $post->post_excerpt ) {
-				echo get_the_excerpt() . ' <a href="' . esc_url( get_permalink() ) . '"><span class="excerpt-more-default">&raquo; More ...</span></a>'; // @codingStandardsIgnoreLine
+				echo get_the_excerpt() . ' <a href="' . esc_url( get_permalink() ) . '"><span class="excerpt-more-default">More</span></a>'; // @codingStandardsIgnoreLine
 			} elseif ( strstr( $post->post_content, '<!--more-->' ) ) {
 				the_content( '' );
 				?>
