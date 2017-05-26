@@ -47,7 +47,7 @@
 			// to that. If an option is set specifically to display excerpts, default to that. Otherwise show
 			// full content.
 			if ( $post->post_excerpt ) {
-				echo get_the_excerpt() . ' <a href="' . esc_url( get_permalink() ) . '"><span class="excerpt-more-default">&raquo; More ...</span></a>'; // @codingStandardsIgnoreLine
+				echo get_the_excerpt() . ' <a href="' . esc_url( get_permalink() ) . '"><span class="excerpt-more-default">More</span></a>'; // @codingStandardsIgnoreLine
 			} elseif ( strstr( $post->post_content, '<!--more-->' ) ) {
 				the_content( '' );
 				?>
