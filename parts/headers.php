@@ -26,7 +26,8 @@ $spine_main_header_values = spine_get_main_header();
 		</ul>
 	</div>
 
-	<div id="press-header">
+<?php if( is_front_page() ) { ?>
+    <div id="press-header">
 
 		<div id="press-logo">
 			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/wsu-press-lg.png' ); ?>"
@@ -36,4 +37,5 @@ $spine_main_header_values = spine_get_main_header();
 		<div id="press-slogan"><?php echo esc_html( $spine_main_header_values['site_tagline'] ); ?></div>
 
 	</div>
+<?php } ?>
 </header>
