@@ -39,7 +39,7 @@ $spine_main_header_values = spine_get_main_header();
 
 		<?php } else { ?>
 
-		<div id="press-page-name"><?php the_title(); ?></div>
+		<div id="press-page-name"><?php echo esc_html( $spine_main_header_values['sub_header_default'] ); ?></div>
 
 		<?php } ?>
 
