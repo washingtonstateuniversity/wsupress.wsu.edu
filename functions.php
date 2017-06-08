@@ -167,3 +167,12 @@ add_filter( 'woocommerce_product_add_to_cart_text', 'wsu_press_add_to_cart_text'
 function wsu_press_add_to_cart_text( $main_header_elements ) {
 	return __( 'Buy', 'woocommerce' );
 }
+
+/**
+ * Wraps product thumbnails in a span tag.
+ *
+ * @since 0.1.9
+ */
+function woocommerce_template_loop_product_thumbnail() {
+	echo '<span class="product-image-wrapper">' . woocommerce_get_product_thumbnail() . '</span>'; // @codingStandardsIgnoreLine (Choosing to trust WooCommerce)
+}
