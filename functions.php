@@ -157,3 +157,13 @@ function wsu_press_header_elements( $main_header_elements ) {
 
 	return $main_header_elements;
 }
+
+add_filter( 'woocommerce_product_add_to_cart_text', 'wsu_press_add_to_cart_text' );
+/**
+ * Filters the "Add to Cart" button text.
+ *
+ * @since 0.1.9
+ */
+function wsu_press_add_to_cart_text( $main_header_elements ) {
+	return __( 'Buy', 'woocommerce' );
+}
