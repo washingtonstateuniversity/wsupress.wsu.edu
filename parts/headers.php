@@ -33,15 +33,7 @@ $spine_main_header_values = spine_get_main_header();
 				 alt="<?php echo esc_html( $spine_main_header_values['site_name'] ); ?>" />
 		</div>
 
-		<?php if ( is_front_page() ) { ?>
-
 		<div id="press-slogan"><?php echo esc_html( $spine_main_header_values['site_tagline'] ); ?></div>
-
-		<?php } else { ?>
-
-		<div id="press-page-name"><?php echo esc_html( $spine_main_header_values['sub_header_default'] ); ?></div>
-
-		<?php } ?>
 
 	</div>
 

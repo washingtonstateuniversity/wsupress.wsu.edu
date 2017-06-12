@@ -136,36 +136,6 @@ function wsu_press_format_dimensions( $dimension_string, $dimensions ) {
 	return $dimension_string;
 }
 
-add_filter( 'spine_main_header_elements', 'wsu_press_header_elements', 999 );
-/**
- * Filters the Spine Header elements.
- *
- * @since 0.1.9
- */
-function wsu_press_header_elements( $main_header_elements ) {
-	if ( is_singular( 'tribe_events' ) ) {
-		$main_header_elements['sub_header_default'] = 'Events';
-	}
-
-	if ( is_singular( 'product' ) ) {
-		$main_header_elements['sub_header_default'] = 'Products';
-	}
-
-	if ( is_singular( 'post' ) ) {
-		$main_header_elements['sub_header_default'] = 'Posts';
-	}
-
-	if ( is_post_type_archive( 'product' ) ) {
-		$main_header_elements['sub_header_default'] = 'Shop All Titles';
-	} elseif ( is_post_type_archive( 'tribe_events' ) ) {
-		$main_header_elements['sub_header_default'] = 'Events';
-	} elseif ( is_tax() ) {
-		$main_header_elements['sub_header_default'] = single_term_title( '', false );
-	}
-
-	return $main_header_elements;
-}
-
 add_filter( 'woocommerce_product_add_to_cart_text', 'wsu_press_add_to_cart_text' );
 /**
  * Filters the "Add to Cart" button text.
