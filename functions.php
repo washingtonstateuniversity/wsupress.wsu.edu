@@ -13,7 +13,7 @@ add_filter( 'spine_child_theme_version', 'wsu_press_theme_version' );
  * @since 0.1.0
  */
 function wsu_press_theme_version() {
-	return '0.1.9';
+	return '0.1.10';
 }
 
 add_action( 'after_setup_theme', 'WSU_Press_Extended_WooCommerce' );
@@ -136,7 +136,7 @@ function wsu_press_format_dimensions( $dimension_string, $dimensions ) {
 	return $dimension_string;
 }
 
-add_filter( 'spine_main_header_elements', 'wsu_press_header_elements' );
+add_filter( 'spine_main_header_elements', 'wsu_press_header_elements', 999 );
 /**
  * Filters the Spine Header elements.
  *
@@ -145,6 +145,14 @@ add_filter( 'spine_main_header_elements', 'wsu_press_header_elements' );
 function wsu_press_header_elements( $main_header_elements ) {
 	if ( is_singular( 'tribe_events' ) ) {
 		$main_header_elements['sub_header_default'] = 'Events';
+	}
+
+	if ( is_singular( 'product' ) ) {
+		$main_header_elements['sub_header_default'] = 'Products';
+	}
+
+	if ( is_singular( 'post' ) ) {
+		$main_header_elements['sub_header_default'] = 'Posts';
 	}
 
 	if ( is_post_type_archive( 'product' ) ) {
