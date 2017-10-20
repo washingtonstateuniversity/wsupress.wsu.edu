@@ -5,6 +5,7 @@ require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-author-taxonomy.p
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-slideshow-shortcode.php' );
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-product-search-shortcode.php' );
 require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-header-link-widget.php' );
+require_once( dirname( __FILE__ ) . '/includes/search.php' );
 
 add_filter( 'spine_child_theme_version', 'wsu_press_theme_version' );
 /**
