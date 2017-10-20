@@ -33,7 +33,6 @@ get_header();
 						?>
 						<article>
 						<h2><a href="<?php echo esc_url( $search_result->_source->url ); ?>"><?php echo esc_html( $search_result->_source->title ); ?></a></h2>
-						<span class="visible-url"><?php echo esc_url( $search_result->_source->url ); ?></span>
 						<div class="visible-content">
 							<?php
 							$visible_content = WSU\Press\Search\filter_elastic_content( $search_result->_source->content );
