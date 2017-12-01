@@ -8,6 +8,40 @@
  Version:        0.2.2
 */
 
+.card--result .card-image a {
+	border-bottom: none;
+}
+
+.card--result .card-image img {
+	width: 120px;
+}
+
+.card--result h2 {
+	padding-top: 18px;
+}
+
+@media screen and (min-width: 500px) {
+
+	.card--result {
+		clear: both;
+		margin-bottom: 36px;
+	}
+
+	.card--result .card-image {
+		float: left;
+		padding-right: 36px;
+	}
+
+	.card--result .card-image img {
+		float: left;
+	}
+
+	.card--result .card-image ~ * {
+		margin-left: 156px;
+	}
+}
+
+
 .wsu-press-slideshow {
 	box-sizing: border-box;
 	margin-bottom: 3rem;
