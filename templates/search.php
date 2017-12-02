@@ -35,7 +35,7 @@ get_header();
 						?>
 						<article class="card card--result">
 
-							<?php if ( $result_post && has_post_thumbnail( $result_post->ID ) ) { ?>
+							<?php if ( 'product' === $search_result->_source->post_type && $result_post && has_post_thumbnail( $result_post->ID ) ) { ?>
 							<figure class="card-image">
 								<a href="<?php echo esc_url( $search_result->_source->url ); ?>">
 									<?php echo get_the_post_thumbnail( $result_post->ID, array( 200, 300 ) ); ?>
