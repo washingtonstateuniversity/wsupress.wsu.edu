@@ -8,6 +8,58 @@
  Version:        0.2.2
 */
 
+.page-search .search-form {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	margin: 0;
+	padding: 0;
+}
+
+.page-search label {
+	-webkit-box-flex: 1;
+	    -ms-flex: 1 0 auto;
+	        flex: 1 0 auto;
+}
+
+.page-search .search-field {
+	border-radius: 2px 0 0 2px;
+	border: 1px solid #717171;
+	border-right: none;
+	color: #717171;
+	font-size: 1em;
+	line-height: 2;
+	padding: 8px 12px;
+	width: 100%;
+}
+
+.page-search .search-field:focus {
+	border-color: #458311;
+	color: #424242;
+	font-weight: 700;
+}
+
+.page-search .search-submit,
+.page-search .search-submit:hover,
+.page-search .search-submit:focus {
+	background: #717171;
+	border: none;
+	border-radius: 0 2px 2px 0;
+	color: #fff;
+	font-size: 1em;
+	letter-spacing: 1px;
+	transition: background .2s ease;
+}
+
+.page-search .search-submit:hover,
+.page-search .search-submit:focus {
+	background: #458311;
+}
+
+.page-search .search-submit:active {
+	background: #64bf17;
+}
+
 .card--result .card-image a {
 	border-bottom: none;
 }
