@@ -26,9 +26,10 @@ get_header();
 				<div class="column one deck deck--results">
 					<?php
 
-					if ( empty( $search_results ) ) {
+					if ( empty( $search_results ) && '' !== get_query_var( 'q' ) ) {
 						?><h2>No search results found.</h2><?php
 					}
+
 					foreach ( $search_results as $search_result ) {
 
 						$result_post = get_page_by_path( basename( $search_result->_source->url ), OBJECT, $search_result->_source->post_type );
