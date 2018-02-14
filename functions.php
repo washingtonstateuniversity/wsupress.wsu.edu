@@ -52,18 +52,6 @@ function WSU_Press_Slideshow_Shortcode() {
 	return WSU_Press_Slideshow_Shortcode::get_instance();
 }
 
-add_action( 'after_setup_theme', 'WSU_Press_Product_Search_Shortcode' );
-/**
- * Starts the WSU Press Product Search shortcode.
- *
- * @since 0.1.0
- *
- * @return \WSU_Press_Product_Search_Shortcode
- */
-function WSU_Press_Product_Search_Shortcode() {
-	return WSU_Press_Product_Search_Shortcode::get_instance();
-}
-
 add_action( 'after_setup_theme', 'woocommerce_support' );
 /**
  * Declares WooCommerce support.
