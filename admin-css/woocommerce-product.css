@@ -11,7 +11,6 @@
 }
 
 .wsu-press-product-attribution {
-	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
 	-ms-flex-wrap: wrap;
@@ -28,9 +27,8 @@
 }
 
 .wsu-press-product-attribution input {
-	-webkit-box-flex: 1;
-	    -ms-flex: 1 0 auto;
-	        flex: 1 0 auto;
+	-ms-flex: 1 0 auto;
+	    flex: 1 0 auto;
 }
 
 .wp-core-ui .wsu-press-product-attribution button {
