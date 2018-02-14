@@ -15,7 +15,7 @@ class WSU_Press_Extended_WooCommerce {
 	 *
 	 * @var array
 	 */
-	var $post_meta_keys = array(
+	public $post_meta_keys = array(
 		'wsu_press_product_subtitle' => array(
 			'description' => 'Subtitle',
 			'type' => 'string',
