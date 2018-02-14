@@ -1,11 +1,10 @@
 <?php
 
-require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-extended-woocommerce.php' );
-require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-author-taxonomy.php' );
-require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-slideshow-shortcode.php' );
-require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-product-search-shortcode.php' );
-require_once( dirname( __FILE__ ) . '/includes/class-wsu-press-header-link-widget.php' );
-require_once( dirname( __FILE__ ) . '/includes/search.php' );
+require_once dirname( __FILE__ ) . '/includes/class-wsu-press-extended-woocommerce.php';
+require_once dirname( __FILE__ ) . '/includes/class-wsu-press-author-taxonomy.php';
+require_once dirname( __FILE__ ) . '/includes/class-wsu-press-slideshow-shortcode.php';
+require_once dirname( __FILE__ ) . '/includes/class-wsu-press-header-link-widget.php';
+require_once dirname( __FILE__ ) . '/includes/search.php';
 
 add_filter( 'spine_child_theme_version', 'wsu_press_theme_version' );
 /**
@@ -51,18 +50,6 @@ add_action( 'after_setup_theme', 'WSU_Press_Slideshow_Shortcode' );
  */
 function WSU_Press_Slideshow_Shortcode() {
 	return WSU_Press_Slideshow_Shortcode::get_instance();
-}
-
-add_action( 'after_setup_theme', 'WSU_Press_Product_Search_Shortcode' );
-/**
- * Starts the WSU Press Product Search shortcode.
- *
- * @since 0.1.0
- *
- * @return \WSU_Press_Product_Search_Shortcode
- */
-function WSU_Press_Product_Search_Shortcode() {
-	return WSU_Press_Product_Search_Shortcode::get_instance();
 }
 
 add_action( 'after_setup_theme', 'woocommerce_support' );
