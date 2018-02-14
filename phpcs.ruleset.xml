@@ -1,11 +1,34 @@
 <?xml version="1.0"?>
-<ruleset name="WSU Press Theme">
-    <description>Sniffs for the coding standards of the WSU Press child theme</description>
+<ruleset name="WSUWP Themes">
+	<!-- Config flags for PHPCS
+	 s flag: Show sniff codes in all reports.
+	 v flag: Print verbose output.
+	-->
+	<arg value="sv"/>
 
-    <rule ref="WordPress-Extra">
-        <exclude name="WordPress.NamingConventions.ValidFunctionName" />
-        <exclude name="WordPress.Files.FileName" />
-        <exclude name="Generic.PHP.DisallowAlternativePHPTags.MaybeASPShortOpenTagFound" />
-        <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
-    </rule>
+	<!-- Check only PHP files -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Check all files in this directory and the directories below it. -->
+	<file>.</file>
+
+	<description>Sniffs for the coding standards used in WSUWP Themes</description>
+
+	<rule ref="WordPress-Extra">
+		<!-- Rules from WSUWP Theme Skeleton repository -->
+		<exclude name="WordPress.NamingConventions.ValidFunctionName" />
+		<exclude name="WordPress.Files.FileName" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.NoSemicolon" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeEnd" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeOpen" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen" />
+		<exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterEnd" />
+		<exclude name="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace" />
+
+		<!-- Rules custom to the WSU Press Theme -->
+		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
+		<exclude name="Generic.PHP.DisallowAlternativePHPTags.MaybeASPShortOpenTagFound" />
+		<exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned" />
+		<exclude name="WordPress.WhiteSpace.PrecisionAlignment.Found" />
+	</rule>
 </ruleset>
