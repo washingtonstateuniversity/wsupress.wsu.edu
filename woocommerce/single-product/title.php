@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $subtitle = get_post_meta( get_the_ID(), 'wsu_press_product_subtitle', true );
 $authors = get_the_terms( get_the_ID(), 'product-author' );
+$author = get_post_meta( get_the_ID(), 'wsu_press_product_author', true );
 $attributions = get_post_meta( get_the_ID(), 'wsu_press_product_attribution', true );
 
 the_title( '<h1 itemprop="name" class="product_title entry-title">', '</h1>' );
@@ -23,7 +24,7 @@ if ( $subtitle ) {
 	<?php
 }
 
-if ( $authors ) {
+if ( $author ) {
 	$author = link_wsu_press_authors( $author, $authors );
 	?>
 	<p class="wsu-press-product-author"><?php echo wp_kses_post( $author ); ?></p>
