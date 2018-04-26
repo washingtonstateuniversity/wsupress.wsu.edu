@@ -5,6 +5,7 @@ namespace WSU\Press\Search;
 add_filter( 'query_vars', 'WSU\Press\Search\filter_query_variable' );
 add_action( 'template_redirect', 'WSU\Press\Search\redirect_wp_default_search' );
 add_filter( 'wsuwp_search_post_types', 'WSU\Press\Search\filter_post_types' );
+add_filter( 'wsuwp_search_post_data', 'WSU\Press\Search\search_data', 10, 2 );
 
 /**
  * Redirect requests to the default WordPress search to our new URL.
@@ -112,4 +113,28 @@ function filter_post_types( $post_types ) {
 	}
 
 	return $post_types;
+}
+
+/**
+ * Filter the data sent to Elasticsearch for a product record.
+ *
+ * @since 0.3.0
+ *
+ * @param array    $data The data being sent to Elasticsearch.
+ * @param \WP_Post $post The full post object.
+ *
+ * @return array Modified list of data to send to Elasticsearch.
+ */
+function search_data( $data, $post ) {
+	if ( 'product' !== $post->post_type ) {
+		return $data;
+	}
+
+	$author = get_post_meta( $post->ID, 'wsu_press_product_author', true );
+	$subtitle = get_post_meta( $post->ID, 'wsu_press_product_subtitle', true );
+
+	$data['content'] .= ' <div class="search-result-author">' . esc_attr( $author ) . '</div>';
+	$data['content'] .= ' <div class="search-result-subtitle">' . esc_attr( $subtitle ) . '</div>';
+
+	return $data;
 }
