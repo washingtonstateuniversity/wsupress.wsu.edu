@@ -66,7 +66,6 @@ class WSU_Press_Extended_WooCommerce {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'save_post_product', array( $this, 'save_product' ), 10, 2 );
 		add_filter( 'woocommerce_product_tabs', array( $this, 'short_quotes_tab' ) );
-		add_filter( 'woocommerce_cart_shipping_method_full_label', array( $this, 'filter_shipping_label' ), 10, 2 );
 	}
 
 	/**
@@ -372,14 +371,5 @@ class WSU_Press_Extended_WooCommerce {
 		?><h2>Recognition</h2><?php
 		$short_quotes = get_post_meta( get_the_ID(), '_wsu_press_product_short_quotes', true );
 		echo wp_kses_post( apply_filters( 'the_content', $short_quotes ) );
-	}
-
-	/**
-	 * Removes the shipping rate label.
-	 *
-	 * @since 0.1.7
-	 */
-	public function filter_shipping_label( $label, $method ) {
-		return str_replace( $method->label . ': ', '', $label );
 	}
 }
