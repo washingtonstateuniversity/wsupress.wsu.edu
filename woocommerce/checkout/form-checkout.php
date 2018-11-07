@@ -19,6 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+?>
+<section class="row single gutter pad-ends">
+	<div class="column one">
+		<?php wc_print_notices(); ?>
+<?php
+
 do_action( 'woocommerce_before_checkout_form', $checkout );
 
 // If checkout registration is disabled and not logged in, the user cannot checkout.
@@ -49,7 +55,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 	<?php endif; ?>
 
-	<h3 id="order_review_heading"><?php esc_html_e( 'Your order', 'woocommerce' ); ?></h3>
+	<h3 id="order_review_heading">Your order</h3>
 
 	<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 
@@ -62,3 +68,5 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 </form>
 
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>
+</div>
+</section>
