@@ -24,6 +24,7 @@ $spine_main_header_values = spine_get_main_header();
 		<ul>
 			<?php dynamic_sidebar( 'site-header' ); ?>
 		</ul>
+		<strong>Free shipping on orders over $50!!!</strong>
 	</div>
 
 	<div id="press-header">
