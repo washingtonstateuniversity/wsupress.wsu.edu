@@ -12,22 +12,22 @@
  *
  * @see https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates/Emails
- * @version 3.5.0
+ * @version 3.5.4
  */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
 /*
  * @hooked WC_Emails::email_header() Output the email header
  */
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-<p>Your order details are shown below for your reference. You’ll receive another email when your order ships.</p>
+<?php /* translators: %s: Customer first name */ ?>
+<p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
+<?php /* translators: %s: Order number */ ?>
+<p><?php printf( esc_html__( 'Just to let you know &mdash; we\'ve received your order #%s, and it is now being processed:', 'woocommerce' ), esc_html( $order->get_order_number() ) ); ?></p>
 
 <?php
-
 /*
  * @hooked WC_Emails::order_details() Shows the order details table.
  * @hooked WC_Structured_Data::generate_order_data() Generates structured data.
@@ -35,24 +35,20 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
  * @since 2.5.0
  */
 do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );
-
 /*
  * @hooked WC_Emails::order_meta() Shows order meta data.
  */
 do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, $email );
-
 /*
  * @hooked WC_Emails::customer_details() Shows customer details
  * @hooked WC_Emails::email_address() Shows email address
  */
 do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
-
 ?>
 <p>
 <?php esc_html_e( 'Thanks!', 'woocommerce' ); ?>
 </p>
 <?php
-
 /*
  * @hooked WC_Emails::email_footer() Output the email footer
  */
