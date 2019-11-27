@@ -1,6 +1,10 @@
 <?php /* Template Name: Search */
 
-$search_results = WSU\Press\Search\get_elastic_response( get_query_var( 'q' ) );
+require_once get_stylesheet_directory() . '/classes/class-press-product-search.php';
+
+$products = Press_Product_Search::get_products( get_query_var( 'q' ) );
+
+//$search_results = WSU\Press\Search\get_elastic_response( get_query_var( 'q' ) );
 
 get_header();
 
@@ -29,32 +33,26 @@ get_header();
 				<div class="column one deck deck--results">
 					<?php
 
-					if ( empty( $search_results ) && '' !== get_query_var( 'q' ) ) {
+					if ( empty( $products ) && '' !== get_query_var( 'q' ) ) {
 						?><h2>No search results found.</h2><?php
 					}
 
-					foreach ( $search_results as $search_result ) {
-
-						$result_post = get_page_by_path( basename( $search_result->_source->url ), OBJECT, $search_result->_source->post_type );
-						?>
+					foreach ( $products as $product ) { ?>
 						<article class="card card--result">
 
-							<?php if ( 'product' === $search_result->_source->post_type && $result_post && has_post_thumbnail( $result_post->ID ) ) { ?>
+							<?php if ( ! empty( $product['img'] ) ) { ?>
 							<figure class="card-image">
-								<a href="<?php echo esc_url( $search_result->_source->url ); ?>">
-									<?php echo get_the_post_thumbnail( $result_post->ID, array( 200, 300 ) ); ?>
+								<a href="<?php echo esc_url( $product['link'] ); ?>">
+									<?php echo get_the_post_thumbnail( $product['id'], array( 200, 300 ) ); ?>
 								</a>
 							</figure>
 							<?php } ?>
 
-							<h2><a href="<?php echo esc_url( $search_result->_source->url ); ?>"><?php echo esc_html( $search_result->_source->title ); ?></a></h2>
+							<h2><a href="<?php echo esc_url( $product['link'] ); ?>"><?php echo esc_html( $product['title'] ); ?></a></h2>
 
 							<div class="visible-content">
-								<?php
-								$visible_content = WSU\Press\Search\filter_elastic_content( $search_result->_source->content );
-
-								echo wp_kses_post( $visible_content );
-								?>
+							<span class="press-author"><?php echo wp_kses_post( $product['author'] ); ?></span>
+							<?php echo esc_html( $product['excerpt'] ); ?><br />
 							</div>
 
 						</article><?php
