@@ -26,6 +26,8 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <p>Your recent order from WSU Press has shipped!</p>
 
+<p>If your order contains an ebook, you will find the download link below.</p>
+
 <?php
 
 /*
