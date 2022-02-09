@@ -142,3 +142,17 @@ function wsu_press_add_to_cart_text( $main_header_elements ) {
 function woocommerce_template_loop_product_thumbnail() {
 	echo '<span class="product-image-wrapper">' . woocommerce_get_product_thumbnail() . '</span>'; // @codingStandardsIgnoreLine (Choosing to trust WooCommerce)
 }
+
+add_filter( 'woocommerce_get_availability_text', 'themeprefix_change_soldout', 10, 2 );
+
+/**
+* Change Sold Out Text to Something Else
+*/
+function themeprefix_change_soldout ( $text, $product) {
+	if ( !$product->is_in_stock() ) {
+		$text = '<div class="">Coming Soon.</div>';
+	}
+	return $text;
+}
+
+
